@@ -8,10 +8,10 @@ const Footer = () => {
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/50 
                             flex items-center justify-center">
-              <span className="text-primary font-bold text-sm">N</span>
+              <span className="text-primary font-bold text-sm">MV</span>
             </div>
             <span className="text-muted-foreground text-sm">
-              © 2024 Network Portfolio. All nodes connected.
+              © 2026 Network Portfolio. All nodes connected.
             </span>
           </div>
 

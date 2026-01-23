@@ -1,18 +1,19 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Briefcase, Calendar, MapPin } from "lucide-react";
+import { Briefcase, Calendar, MapPin, ExternalLink } from "lucide-react";
 
 const experiences = [
   {
-    title: "Software Development Intern",
-    company: "SkillCraft Technology",
-    period: "Nov 2025 – Dec 2025",
+    title: "Mobile Application Developer Intern",
+    company: "CodSoft",
+    period: "Sep 2024 – Oct 2024",
     location: "Remote",
+    link: "https://github.com/mveekshan1/CODSOFT-TO-DO.git",
     points: [
-      "Assisted in developing and testing software components",
-      "Supported debugging by analyzing errors and following structured workflows",
-      "Documented findings for team review and quality checks",
+      "Assisted in Android application development and testing",
+      "Helped resolve basic usability and stability issues",
+      "Communicated progress and challenges effectively",
     ],
   },
   {
@@ -20,6 +21,7 @@ const experiences = [
     company: "Cognifyz Technologies",
     period: "Apr 2025 – May 2025",
     location: "Remote",
+    link: "https://github.com/mveekshan1/COGNIFY-INTERNSHIP.git",
     points: [
       "Worked on assigned development tasks under supervision",
       "Identified recurring issues and communicated them clearly to the team",
@@ -27,14 +29,15 @@ const experiences = [
     ],
   },
   {
-    title: "Mobile Application Developer Intern",
-    company: "CodSoft",
-    period: "Sep 2024 – Oct 2024",
+    title: "Software Development Intern",
+    company: "SkillCraft Technology",
+    period: "Nov 2025 – Dec 2025",
     location: "Remote",
+    link: "https://github.com/mveekshan1/SCT_SD_4.git",
     points: [
-      "Assisted in Android application development and testing",
-      "Helped resolve basic usability and stability issues",
-      "Communicated progress and challenges effectively",
+      "Assisted in developing and testing software components",
+      "Supported debugging by analyzing errors and following structured workflows",
+      "Documented findings for team review and quality checks",
     ],
   },
 ];
@@ -53,7 +56,7 @@ const ExperienceSection = () => {
           className="text-center mb-16"
         >
           <span className="inline-block text-primary mono-text text-sm mb-4 tracking-wider">
-            // EXPERIENCE
+            // Internship (Work Experience)
           </span>
           <h2 className="text-4xl md:text-5xl font-bold">
             Work <span className="text-primary glow-text">Timeline</span>
@@ -62,7 +65,7 @@ const ExperienceSection = () => {
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/20 to-transparent" />
+          <div className="absolute left-8 top-2 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/30 to-primary/10" />
 
           <div className="space-y-8">
             {experiences.map((exp, index) => (
@@ -74,7 +77,7 @@ const ExperienceSection = () => {
                 className="relative pl-20"
               >
                 {/* Timeline node */}
-                <div className="absolute left-6 top-6 w-4 h-4 rounded-full bg-primary node-glow transform -translate-x-1/2" />
+                <div className="absolute left-8 top-2 w-4 h-4 rounded-full bg-primary node-glow transform -translate-x-1/2" />
                 
                 <div className="glass-card rounded-xl p-6 hover:border-primary/50 transition-all duration-300">
                   <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
@@ -102,6 +105,22 @@ const ExperienceSection = () => {
                       </li>
                     ))}
                   </ul>
+
+                  {exp.link && (
+                    <div className="pt-4 mt-4 border-t border-border">
+                      <a
+                        href={exp.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-3 py-2 bg-primary/10 border border-primary/30 
+                                   hover:bg-primary/20 hover:border-primary/50 rounded-lg text-primary 
+                                   font-medium text-xs transition-all duration-300"
+                      >
+                        View Repository
+                        <ExternalLink size={14} />
+                      </a>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             ))}

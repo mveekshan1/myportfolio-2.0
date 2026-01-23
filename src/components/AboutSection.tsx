@@ -27,10 +27,11 @@ const AboutSection = () => {
             <div className="absolute inset-0 flex items-center justify-center">
               {/* Central node */}
               <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 4, repeat: Infinity }}
+                animate={{ scale: [1, 1.12, 1] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
                 className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/80 to-accent/60 
                            node-glow flex items-center justify-center z-10"
+                style={{ willChange: "transform" }}
               >
                 <span className="text-2xl font-bold text-primary-foreground">2026</span>
               </motion.div>

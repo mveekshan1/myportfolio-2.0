@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Shield } from "lucide-react";
+import { Code, Shield } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -16,8 +16,8 @@ const HeroSection = () => {
           className="mb-6"
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-primary/20 text-primary mono-text text-sm tracking-wider">
-            <Shield size={16} />
-            CYBERSECURITY & COMPUTER SCIENCE
+            <Code size={16} />
+            COMPUTER SCIENCE UNDERGRADUATE
           </span>
         </motion.div>
 
@@ -27,8 +27,6 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight"
         >
-          <span className="text-foreground">Cybersecurity &</span>
-          <br />
           <span className="glow-text text-primary">Computer Science</span>
           <br />
           <span className="text-foreground">Undergraduate</span>
@@ -40,8 +38,8 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 leading-relaxed"
         >
-          Focused on secure systems, network traffic analysis, and practical problem-solving 
-          through hands-on projects and labs.
+          Focused on computer science fundamentals, system behavior, and applied problem solving 
+          through academic projects and hands-on labs.
         </motion.p>
 
         <motion.p

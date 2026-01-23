@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Shield, Image, Target, BookOpen } from "lucide-react";
+import { Shield, Image, Target, BookOpen, ExternalLink } from "lucide-react";
 
 const projects = [
   {
@@ -29,6 +29,7 @@ const projects = [
     domain: "Streamlit, Open-Source Models",
     objective: "To build a lightweight application allowing users to generate multilingual memes, even in low-bandwidth environments.",
     icon: Image,
+    link: "https://desimemegen.streamlit.app/",
     contributions: [
       "Contributed to feature implementation and testing",
       "Supported AI-assisted caption suggestions and translation",
@@ -133,6 +134,22 @@ const ProjectsSection = () => {
                       ))}
                     </ul>
                   </div>
+
+                  {project.link && (
+                    <div className="pt-4 border-t border-border">
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 
+                                   hover:bg-primary/20 hover:border-primary/50 rounded-lg text-primary 
+                                   font-medium text-sm transition-all duration-300"
+                      >
+                        View Project
+                        <ExternalLink size={16} />
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.article>

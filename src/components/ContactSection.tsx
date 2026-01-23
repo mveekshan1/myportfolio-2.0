@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mail, MapPin, Linkedin, Github, ExternalLink, Phone } from "lucide-react";
+import { Mail, MapPin, Linkedin, Github, ExternalLink, Phone, Code } from "lucide-react";
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -54,17 +54,20 @@ const ContactSection = () => {
                 </div>
               </a>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/30 border border-border">
-                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+              <a
+                href="tel:+919963111145"
+                className="flex items-center gap-4 p-4 rounded-xl bg-secondary/30 border border-border
+                           hover:border-primary/50 hover:bg-secondary/50 transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center
+                               group-hover:node-glow transition-all duration-300">
                   <Phone className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Phone Number</p>
-                  <p className="text-foreground font-medium text-sm md:text-base">
-                    <a href="tel:+919963111145" className="hover:underline">+91 9963111145</a>
-                  </p>
+                  <p className="text-foreground font-medium text-sm md:text-base">+91 9963111145</p>
                 </div>
-              </div>
+              </a>
 
               <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/30 border border-border">
                 <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
@@ -81,25 +84,36 @@ const ContactSection = () => {
             <div className="flex flex-col justify-between">
               <div>
                 <p className="text-sm text-muted-foreground mb-4">Connect with me</p>
-                <div className="flex gap-4">
+                <div className="flex gap-4 justify-center">
                   {[
                     { icon: Github, href: "https://github.com/mveekshan1", label: "GitHub" },
                     { icon: Linkedin, href: "https://www.linkedin.com/in/mveekshangoud", label: "LinkedIn" },
+                    { logo: "HackerRank", href: "https://www.hackerrank.com/profile/veekshanmerugu11", label: "HackerRank" },
                   ].map((social, i) => (
-                    <motion.a
+                    <motion.div
                       key={i}
-                      href={social.href}
                       initial={{ opacity: 0, y: 20 }}
                       animate={isInView ? { opacity: 1, y: 0 } : {}}
                       transition={{ delay: 0.4 + i * 0.1 }}
-                      className="w-12 h-12 rounded-full bg-secondary border border-primary/20 
-                                 flex items-center justify-center hover:border-primary/50 
-                                 hover:node-glow transition-all duration-300 group"
-                      aria-label={social.label}
+                      className="flex flex-col items-center gap-2"
                     >
-                      <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary 
-                                              transition-colors" />
-                    </motion.a>
+                      <motion.a
+                        href={social.href}
+                        className="w-12 h-12 rounded-full bg-secondary border border-primary/20 
+                                   flex items-center justify-center hover:border-primary/50 
+                                   hover:node-glow transition-all duration-300 group"
+                        aria-label={social.label}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        {social.icon ? (
+                          <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary 
+                                                  transition-colors" />
+                        ) : (
+                          <img src="/hackerrank-logo.svg" alt={social.label} className="w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity" />
+                        )}
+                      </motion.a>
+                      <span className="text-xs text-muted-foreground">{social.label}</span>
+                    </motion.div>
                   ))}
                 </div>
               </div>
