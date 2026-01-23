@@ -11,7 +11,7 @@ const achievements = [
 const certifications = [
   {
     name: "Infosys Springboard — Core Java, HTML (Advanced), AI with Python",
-    link: "https://drive.google.com/your-infosys-certificate-link"
+    link: ""
   },
   {
     name: "Google Cloud Skills Boost — Hands-on Labs & Public Badge",
