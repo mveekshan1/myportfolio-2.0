@@ -3,9 +3,8 @@
 This repository contains my **personal portfolio website**, built to showcase my background in **Computer Science & Engineering**, projects, internships, and technical skills.  
 The website is designed with a modern, responsive UI and smooth interactions to provide a clean and professional user experience.
 
+**website:** https://myportfolio-veekshan.netlify.app/
 ---
-
-# website: https://myportfolio-veekshan.netlify.app/
 
 ## 🌐 Project Overview
 
