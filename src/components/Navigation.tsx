@@ -6,6 +6,8 @@ const navLinks = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
+  { href: "#experience", label: "Experience" },
+  { href: "#education", label: "Education" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -36,10 +38,10 @@ const Navigation = () => {
         <a href="#" className="flex items-center gap-2 group">
           <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary/50 
                           flex items-center justify-center group-hover:node-glow transition-all duration-300">
-            <span className="text-primary font-bold">N</span>
+            <span className="text-primary font-bold">V</span>
           </div>
           <span className="font-bold text-lg text-foreground hidden sm:block">
-            Network<span className="text-primary">.</span>
+            Veekshan<span className="text-primary">.</span>
           </span>
         </a>
 

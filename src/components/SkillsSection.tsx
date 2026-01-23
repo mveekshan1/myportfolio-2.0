@@ -1,14 +1,49 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { Shield, Code, Server, Wrench } from "lucide-react";
 
-const skills = [
-  { name: "React", level: 95, category: "Frontend" },
-  { name: "TypeScript", level: 90, category: "Language" },
-  { name: "Node.js", level: 85, category: "Backend" },
-  { name: "UI/UX Design", level: 88, category: "Design" },
-  { name: "Python", level: 80, category: "Language" },
-  { name: "AWS", level: 75, category: "Cloud" },
+const skillCategories = [
+  {
+    title: "Networking & Security",
+    icon: Shield,
+    subtitle: "Foundational",
+    skills: [
+      "Understanding of network traffic flows",
+      "Exposure to DDoS attack detection concepts",
+      "Observing and documenting system behavior under load",
+    ],
+  },
+  {
+    title: "Programming",
+    icon: Code,
+    subtitle: "Languages",
+    skills: [
+      "Python (basic, applied in ML and scripting)",
+      "Java (basic, academic usage)",
+    ],
+  },
+  {
+    title: "Systems & Tools",
+    icon: Server,
+    subtitle: "Infrastructure",
+    skills: [
+      "Linux (basic system usage and troubleshooting)",
+      "Git & GitLab (version control)",
+      "Firebase",
+      "Apache",
+      "Windows environments",
+    ],
+  },
+  {
+    title: "Development",
+    icon: Wrench,
+    subtitle: "Full Stack",
+    skills: [
+      "Full-Stack Web Development (academic & internship exposure)",
+      "Android Application Development (assisted development and testing)",
+    ],
+  },
 ];
 
 const SkillsSection = () => {
@@ -27,19 +62,18 @@ const SkillsSection = () => {
           className="text-center mb-16"
         >
           <span className="inline-block text-primary mono-text text-sm mb-4 tracking-wider">
-            // MY SKILLS
+            // SKILLS & KNOWLEDGE
           </span>
           <h2 className="text-4xl md:text-5xl font-bold">
-            Network of <span className="text-primary glow-text">Expertise</span>
+            Technical <span className="text-primary glow-text">Arsenal</span>
           </h2>
         </motion.div>
 
-        {/* Skills Network Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills.map((skill, index) => (
+        <div className="grid md:grid-cols-2 gap-6">
+          {skillCategories.map((category, index) => (
             <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, scale: 0.8 }}
+              key={category.title}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="glass-card rounded-xl p-6 relative overflow-hidden group
@@ -50,34 +84,31 @@ const SkillsSection = () => {
                               opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               <div className="relative z-10">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    {/* Node indicator */}
-                    <div className="w-3 h-3 rounded-full bg-primary animate-pulse-glow" />
-                    <h3 className="text-xl font-semibold text-foreground">{skill.name}</h3>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center
+                                  group-hover:node-glow transition-all duration-300">
+                    <category.icon size={24} className="text-primary" />
                   </div>
-                  <span className="text-primary mono-text text-sm">{skill.level}%</span>
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
+                    <span className="text-xs text-muted-foreground mono-text">{category.subtitle}</span>
+                  </div>
                 </div>
 
-                <span className="inline-block px-2 py-1 rounded bg-secondary/50 text-muted-foreground 
-                                 text-xs mono-text mb-4">
-                  {skill.category}
-                </span>
-
-                {/* Progress bar */}
-                <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: `${skill.level}%` } : {}}
-                    transition={{ duration: 1, delay: 0.3 + index * 0.1, ease: "easeOut" }}
-                    className="h-full rounded-full relative"
-                    style={{
-                      background: "linear-gradient(90deg, hsl(180 100% 50%), hsl(200 100% 60%), hsl(280 100% 65%))",
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-primary/30 animate-pulse-glow" />
-                  </motion.div>
-                </div>
+                <ul className="space-y-3">
+                  {category.skills.map((skill, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ duration: 0.3, delay: 0.3 + index * 0.1 + i * 0.05 }}
+                      className="flex items-start gap-3 text-muted-foreground text-sm"
+                    >
+                      <span className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0 animate-pulse-glow" />
+                      {skill}
+                    </motion.li>
+                  ))}
+                </ul>
               </div>
 
               {/* Connection lines decoration */}

@@ -1,10 +1,17 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { Search, FileText, Users } from "lucide-react";
 
 const AboutSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const highlights = [
+    { icon: Search, text: "Analyzing system behavior under different conditions" },
+    { icon: FileText, text: "Documenting observations clearly" },
+    { icon: Users, text: "Supporting users and teams through structured problem-solving" },
+  ];
 
   return (
     <section id="about" className="relative py-32 px-6" ref={ref}>
@@ -25,7 +32,7 @@ const AboutSection = () => {
                 className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/80 to-accent/60 
                            node-glow flex items-center justify-center z-10"
               >
-                <span className="text-3xl font-bold text-primary-foreground">ME</span>
+                <span className="text-2xl font-bold text-primary-foreground">2026</span>
               </motion.div>
 
               {/* Orbiting nodes */}
@@ -91,7 +98,7 @@ const AboutSection = () => {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-5xl font-bold mb-6"
             >
-              A Node in the <span className="text-primary glow-text">Digital Network</span>
+              A Node in the <span className="text-primary glow-text">Security Network</span>
             </motion.h2>
 
             <motion.p
@@ -100,41 +107,35 @@ const AboutSection = () => {
               transition={{ delay: 0.4 }}
               className="text-muted-foreground text-lg leading-relaxed mb-6"
             >
-              I'm a passionate developer and designer who believes in the power of connections. 
-              Just like nodes in a network, I thrive on building bridges between ideas, 
-              technologies, and people.
+              I am currently pursuing B.Tech in Computer Science and Engineering (2026) 
+              with academic and project exposure to network security, DDoS detection, 
+              and full-stack development.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ delay: 0.5 }}
+              className="space-y-3 mb-6"
+            >
+              {highlights.map((item, index) => (
+                <div key={index} className="flex items-center gap-3 text-muted-foreground">
+                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                    <item.icon size={16} className="text-primary" />
+                  </div>
+                  <span>{item.text}</span>
+                </div>
+              ))}
+            </motion.div>
 
             <motion.p
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.5 }}
-              className="text-muted-foreground text-lg leading-relaxed"
-            >
-              With expertise in modern web technologies and a keen eye for design, 
-              I create experiences that not only look stunning but also form meaningful 
-              connections with users.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.6 }}
-              className="mt-8 flex gap-6"
+              className="text-muted-foreground/80 text-base leading-relaxed italic border-l-2 border-primary/50 pl-4"
             >
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary glow-text">5+</div>
-                <div className="text-sm text-muted-foreground">Years Experience</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary glow-text">50+</div>
-                <div className="text-sm text-muted-foreground">Projects Completed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary glow-text">100%</div>
-                <div className="text-sm text-muted-foreground">Client Satisfaction</div>
-              </div>
-            </motion.div>
+              I don't claim mastery — I focus on learning depth, correctness, and real-world applicability.
+            </motion.p>
           </div>
         </motion.div>
       </div>
