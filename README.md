@@ -1,61 +1,60 @@
-# Welcome to your Lovable project
+# Personal Portfolio Website
 
-## Project info
+This repository contains my **personal portfolio website**, built to showcase my background in **Computer Science & Engineering**, projects, internships, and technical skills.  
+The website is designed with a modern, responsive UI and smooth interactions to provide a clean and professional user experience.
 
-**URL**: 
+---
 
-## How can I edit this code?
+## 🌐 Project Overview
 
-There are several ways of editing your application.
+This portfolio highlights:
+- My academic background
+- Technical skills and interests
+- Projects and internship experience
+- Certifications and achievements
+- Contact information
 
-**Use Lovable**
+The goal of this project is to present my profile in a clear, structured, and visually engaging way for recruiters and collaborators.
 
-Simply visit the  and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Technologies Used
 
-**Use your preferred IDE**
+This project is built using:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Vite** – Fast development build tool
+- **React** – Component-based UI development
+- **TypeScript** – Type-safe JavaScript
+- **Tailwind CSS** – Utility-first styling
+- **shadcn/ui** – Prebuilt UI components
+- **Framer Motion** – Animations and transitions
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 🚀 Getting Started (Run Locally)
+
+### Prerequisites
+
+Make sure you have the following installed:
+- **Node.js** (v16 or later)
+- **npm**
+
+You can install Node.js using **nvm** if needed:  
+https://github.com/nvm-sh/nvm#installing-and-updating
+
+---
+
+### Installation Steps
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone 
+# Step 1: Clone the repository
+git clone <YOUR_REPOSITORY_URL>
 
-# Step 2: Navigate to the project directory.
+# Step 2: Navigate into the project directory
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Step 3: Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Step 4: Start the development server
 npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
