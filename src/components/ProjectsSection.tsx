@@ -1,26 +1,46 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { ExternalLink, Github } from "lucide-react";
+import { Shield, Image, Target, BookOpen } from "lucide-react";
 
 const projects = [
   {
-    title: "Neural Dashboard",
-    description: "A real-time analytics dashboard with AI-powered insights and beautiful data visualizations.",
-    tags: ["React", "D3.js", "Python", "ML"],
-    image: "linear-gradient(135deg, hsl(220 60% 20%) 0%, hsl(280 60% 30%) 100%)",
+    title: "Semi-Supervised ML for DDoS Detection",
+    type: "Web-based Security Project",
+    domain: "Network Security / Traffic Analysis",
+    objective: "To identify potential DDoS attacks by analyzing network flow data and abnormal traffic patterns.",
+    icon: Shield,
+    contributions: [
+      "Assisted in applying machine learning techniques for detecting traffic anomalies",
+      "Used flow-level data to observe behavior under normal vs attack conditions",
+      "Documented system responses and testing observations",
+      "Supported validation of detection logic across different traffic scenarios",
+    ],
+    learnings: [
+      "How traffic volume and flow patterns change during attacks",
+      "The importance of clean data and validation in security systems",
+      "Why detection accuracy matters more than flashy metrics",
+    ],
+    gradient: "linear-gradient(135deg, hsl(180 60% 15%) 0%, hsl(200 60% 25%) 100%)",
   },
   {
-    title: "ConnectHub",
-    description: "Social networking platform focusing on professional collaboration and knowledge sharing.",
-    tags: ["Next.js", "GraphQL", "PostgreSQL"],
-    image: "linear-gradient(135deg, hsl(180 60% 20%) 0%, hsl(200 60% 30%) 100%)",
-  },
-  {
-    title: "CryptoFlow",
-    description: "Cryptocurrency portfolio tracker with real-time price updates and portfolio analytics.",
-    tags: ["React Native", "Node.js", "WebSocket"],
-    image: "linear-gradient(135deg, hsl(160 60% 20%) 0%, hsl(180 60% 30%) 100%)",
+    title: "DESI-MEME-GENERATOR",
+    type: "Web Application",
+    domain: "Streamlit, Open-Source Models",
+    objective: "To build a lightweight application allowing users to generate multilingual memes, even in low-bandwidth environments.",
+    icon: Image,
+    contributions: [
+      "Contributed to feature implementation and testing",
+      "Supported AI-assisted caption suggestions and translation",
+      "Focused on usability and performance, especially for slow networks",
+      "Helped address issues related to user-generated content during testing",
+    ],
+    learnings: [
+      "How real users interact with applications",
+      "Why performance and simplicity matter more than features",
+      "Handling functional issues through structured debugging",
+    ],
+    gradient: "linear-gradient(135deg, hsl(280 60% 15%) 0%, hsl(320 60% 25%) 100%)",
   },
 ];
 
@@ -41,7 +61,7 @@ const ProjectsSection = () => {
             // MY PROJECTS
           </span>
           <h2 className="text-4xl md:text-5xl font-bold">
-            Featured <span className="text-primary glow-text">Connections</span>
+            Featured <span className="text-primary glow-text">Projects</span>
           </h2>
         </motion.div>
 
@@ -55,75 +75,63 @@ const ProjectsSection = () => {
               className="glass-card rounded-2xl overflow-hidden group hover:border-primary/50 
                          transition-all duration-500"
             >
-              <div className="grid lg:grid-cols-2">
-                {/* Image/Preview area */}
+              <div className="grid lg:grid-cols-3">
+                {/* Left side - Project info */}
                 <div
-                  className="h-64 lg:h-auto relative overflow-hidden"
-                  style={{ background: project.image }}
+                  className="p-8 relative overflow-hidden flex flex-col justify-center"
+                  style={{ background: project.gradient }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent lg:bg-gradient-to-r" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/80 lg:block hidden" />
                   
-                  {/* Network decoration */}
-                  <svg className="absolute inset-0 w-full h-full opacity-30">
-                    <defs>
-                      <pattern id={`grid-${index}`} width="40" height="40" patternUnits="userSpaceOnUse">
-                        <circle cx="20" cy="20" r="1" fill="hsl(180 100% 50%)" />
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill={`url(#grid-${index})`} />
-                  </svg>
-
-                  {/* Animated node */}
-                  <motion.div
-                    animate={{ 
-                      x: [0, 30, 0, -30, 0],
-                      y: [0, -20, 30, -20, 0],
-                    }}
-                    transition={{ duration: 10, repeat: Infinity }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                               w-20 h-20 rounded-full bg-primary/20 border border-primary/50 
-                               flex items-center justify-center node-glow"
-                  >
-                    <span className="text-2xl font-bold text-primary">0{index + 1}</span>
-                  </motion.div>
+                  <div className="relative z-10">
+                    <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary/50 
+                                    flex items-center justify-center mb-4 node-glow">
+                      <project.icon size={28} className="text-primary" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2 text-foreground">{project.title}</h3>
+                    <p className="text-sm text-primary mono-text mb-1">{project.type}</p>
+                    <p className="text-xs text-muted-foreground">{project.domain}</p>
+                  </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-8 lg:p-12 flex flex-col justify-center">
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4 group-hover:text-primary 
-                                 transition-colors duration-300">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 rounded-full bg-secondary/50 border border-primary/20 
-                                   text-sm mono-text text-primary/80"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                {/* Right side - Details */}
+                <div className="lg:col-span-2 p-8 space-y-6">
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Target size={18} className="text-primary" />
+                      <h4 className="font-semibold text-foreground">Objective</h4>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">{project.objective}</p>
                   </div>
 
-                  <div className="flex gap-4">
-                    <button className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground 
-                                       rounded-lg font-medium hover:shadow-glow transition-all duration-300
-                                       hover:scale-105">
-                      <ExternalLink size={18} />
-                      View Live
-                    </button>
-                    <button className="flex items-center gap-2 px-6 py-3 border border-primary/50 
-                                       text-primary rounded-lg font-medium hover:bg-primary/10 
-                                       transition-all duration-300 glow-border">
-                      <Github size={18} />
-                      Code
-                    </button>
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Shield size={18} className="text-primary" />
+                      <h4 className="font-semibold text-foreground">What I Worked On</h4>
+                    </div>
+                    <ul className="space-y-2">
+                      {project.contributions.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-muted-foreground text-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <BookOpen size={18} className="text-primary" />
+                      <h4 className="font-semibold text-foreground">What I Learned</h4>
+                    </div>
+                    <ul className="space-y-2">
+                      {project.learnings.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-muted-foreground text-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div>

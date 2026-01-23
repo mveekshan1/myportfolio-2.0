@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Shield } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -14,8 +15,9 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
           className="mb-6"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-secondary/50 border border-primary/20 text-primary mono-text text-sm tracking-wider">
-            DIGITAL CREATOR & DEVELOPER
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-primary/20 text-primary mono-text text-sm tracking-wider">
+            <Shield size={16} />
+            CYBERSECURITY & COMPUTER SCIENCE
           </span>
         </motion.div>
 
@@ -23,23 +25,33 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
+          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight"
         >
-          <span className="text-foreground">Building</span>
+          <span className="text-foreground">Cybersecurity &</span>
           <br />
-          <span className="glow-text text-primary">Connected</span>
+          <span className="glow-text text-primary">Computer Science</span>
           <br />
-          <span className="text-foreground">Experiences</span>
+          <span className="text-foreground">Undergraduate</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
+          className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 leading-relaxed"
         >
-          I craft digital experiences that connect people, ideas, and technology 
-          in the vast network of the web.
+          Focused on secure systems, network traffic analysis, and practical problem-solving 
+          through hands-on projects and labs.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-base md:text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-12 leading-relaxed"
+        >
+          I work best at the intersection of systems, data, and structured troubleshooting — 
+          understanding how things behave, why they break, and how to detect anomalies.
         </motion.p>
 
         <motion.div
@@ -49,18 +61,11 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <a
-            href="#projects"
+            href="#about"
             className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold 
                        hover:shadow-glow-intense transition-all duration-300 hover:scale-105"
           >
-            View My Work
-          </a>
-          <a
-            href="#contact"
-            className="px-8 py-4 border border-primary/50 text-primary rounded-lg font-semibold
-                       hover:bg-primary/10 hover:border-primary transition-all duration-300 glow-border"
-          >
-            Get In Touch
+            Enter Portfolio
           </a>
         </motion.div>
 
