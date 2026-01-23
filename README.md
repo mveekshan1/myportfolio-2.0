@@ -48,10 +48,10 @@ https://github.com/nvm-sh/nvm#installing-and-updating
 
 ```sh
 # Step 1: Clone the repository
-git clone <YOUR_REPOSITORY_URL>
+git clone https://github.com/mveekshan1/myportfolio-2.0.git
 
 # Step 2: Navigate into the project directory
-cd <YOUR_PROJECT_NAME>
+cd myportfolio-2.0
 
 # Step 3: Install dependencies
 npm install
