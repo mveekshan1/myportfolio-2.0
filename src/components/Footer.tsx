@@ -11,7 +11,7 @@ const Footer = () => {
               <span className="text-primary font-bold text-sm">MV</span>
             </div>
             <span className="text-muted-foreground text-sm">
-              © 2026 Network Portfolio. All nodes connected.
+              © 2026 Merugu Veekshan Goud Portfolio. All nodes connected.
             </span>
           </div>
 
