@@ -9,10 +9,20 @@ const achievements = [
 ];
 
 const certifications = [
-  "Infosys Springboard — Core Java, HTML (Advanced), AI with Python",
-  "Google Cloud Skills Boost — Hands-on Labs & Public Badge",
-  "HackerRank — Python (Basic)",
+  {
+    name: "Infosys Springboard — Core Java, HTML (Advanced), AI with Python",
+    link: "https://drive.google.com/your-infosys-certificate-link"
+  },
+  {
+    name: "Google Cloud Skills Boost — Hands-on Labs & Public Badge",
+    link: "https://www.skills.google/public_profiles/a3350b93-b5fe-4849-afc0-efeaf9951c98"
+  },
+  {
+    name: "HackerRank — Python (Basic)",
+    link: "https://www.hackerrank.com/certificates/24f05f6c073b"
+  }
 ];
+
 
 const EducationSection = () => {
   const ref = useRef(null);
@@ -134,16 +144,25 @@ const EducationSection = () => {
             Certifications
           </h3>
           <div className="flex flex-wrap gap-3">
-            {certifications.map((cert, i) => (
-              <span
-                key={i}
-                className="px-4 py-2 rounded-full bg-secondary/50 border border-primary/20 
-                           text-sm text-muted-foreground hover:border-primary/50 hover:text-foreground
-                           transition-all duration-300"
-              >
-                {cert}
-              </span>
-            ))}
+            <div className="flex flex-wrap gap-3">
+  {certifications.map((cert, i) => (
+    <a
+      key={i}
+      href={cert.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group px-4 py-2 rounded-full bg-secondary/50 border border-primary/20 
+                 text-sm text-muted-foreground cursor-pointer
+                 hover:border-primary/50 hover:text-foreground
+                 hover:underline underline-offset-4
+                 transition-all duration-300 flex items-center gap-2"
+    >
+      {cert.name}
+      <span className="opacity-0 group-hover:opacity-100 transition">↗</span>
+    </a>
+  ))}
+</div>
+
           </div>
         </motion.div>
       </div>
