@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mail, MapPin, Linkedin, Github, ExternalLink } from "lucide-react";
+import { Mail, MapPin, Linkedin, Github, ExternalLink, Phone } from "lucide-react";
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -56,6 +56,18 @@ const ContactSection = () => {
 
               <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/30 border border-border">
                 <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                  <Phone className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Phone Number</p>
+                  <p className="text-foreground font-medium text-sm md:text-base">
+                    <a href="tel:+919963111145" className="hover:underline">+91 9963111145</a>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/30 border border-border">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
                   <MapPin className="w-5 h-5 text-primary" />
                 </div>
                 <div>
@@ -71,8 +83,8 @@ const ContactSection = () => {
                 <p className="text-sm text-muted-foreground mb-4">Connect with me</p>
                 <div className="flex gap-4">
                   {[
-                    { icon: Github, href: "#", label: "GitHub" },
-                    { icon: Linkedin, href: "#", label: "LinkedIn" },
+                    { icon: Github, href: "https://github.com/mveekshan1", label: "GitHub" },
+                    { icon: Linkedin, href: "https://www.linkedin.com/in/mveekshangoud", label: "LinkedIn" },
                   ].map((social, i) => (
                     <motion.a
                       key={i}
