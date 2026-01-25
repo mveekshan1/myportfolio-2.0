@@ -99,18 +99,20 @@ const AboutSection = () => {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-5xl font-bold mb-6"
             >
-              A Node in the <span className="text-primary glow-text">Security Network</span>
+              Building Foundations in <span className="text-primary glow-text">Computer Science</span>
             </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.4 }}
-              className="text-muted-foreground text-lg leading-relaxed mb-6"
+              className="text-muted-foreground text-lg leading-relaxed mb-6 text-justify max-w-prose"
             >
-              I am currently pursuing B.Tech in Computer Science and Engineering (2026) 
-              with academic and project exposure to network security, DDoS detection, 
-              and full-stack development.
+             I am a Computer Science and Engineering undergraduate (2026) with hands-on experience in software development,
+             full-stack web applications, and Android app development gained through internships, academic projects, and student leadership roles. 
+             I have practical exposure to technical troubleshooting, software issue diagnosis, problem resolution, and documentation, following structured workflows and defined processes. 
+             I have worked with Python and Java (basic), cloud labs, and development tools while collaborating in remote, team-based environments. 
+             I am a motivated learner with strong problem-solving, communication, and adaptability skills, suited for fast-paced, service-oriented and technical roles.
             </motion.p>
 
             <motion.div
