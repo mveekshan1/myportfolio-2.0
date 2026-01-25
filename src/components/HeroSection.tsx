@@ -3,7 +3,7 @@ import { Code } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen px-6 overflow-hidden flex items-center">
+    <section className="relative min-h-screen px-6 pt-24 overflow-hidden flex items-center">
       {/* Background Orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-glow-primary/10 rounded-full blur-3xl animate-pulse-glow" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse-glow" />
@@ -18,11 +18,13 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex justify-center mb-14"
+          className="flex justify-center mb-12"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full 
-                           bg-secondary/50 border border-primary/20 
-                           text-primary mono-text text-sm tracking-wider">
+          <span
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full 
+                       bg-secondary/50 border border-primary/20 
+                       text-primary mono-text text-sm tracking-wider"
+          >
             <Code size={16} />
             COMPUTER SCIENCE AND ENGINEERING
           </span>
@@ -31,7 +33,7 @@ const HeroSection = () => {
         {/* PHOTO + TITLE ROW */}
         <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-10">
 
-          {/* LEFT — PROFILE PHOTO */}
+          {/* PROFILE PHOTO */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -43,19 +45,19 @@ const HeroSection = () => {
               alt="Profile"
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="w-33 h-47 md:w-52 md:h-60 rounded-full object-cover 
+              className="w-40 h-52 md:w-52 md:h-60 rounded-full object-cover
                          border-2 border-primary/60 shadow-glow"
             />
           </motion.div>
 
-          {/* RIGHT — TITLE */}
+          {/* TITLE */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className="text-center md:text-left"
+            className="text-center md:text-left md:col-span-2 mt-6 md:mt-0"
           >
-            <h1 className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl">
+            <h1 className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-bold leading-tight">
               <span className="glow-text text-primary whitespace-nowrap">
                 Computer Science
               </span>
@@ -65,8 +67,8 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* DESCRIPTION + CTA — CENTERED BLOCK */}
-        <div className="mt-16 text-center">
+        {/* DESCRIPTION + CTA */}
+        <div className="mt-14 text-center">
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
