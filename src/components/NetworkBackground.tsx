@@ -38,7 +38,7 @@ const NetworkBackground = () => {
           vx: (Math.random() - 0.5) * 0.5,
           vy: (Math.random() - 0.5) * 0.5,
           radius: Math.random() * 2 + 1,
-          opacity: Math.random() * 0.5 + 0.3,
+          opacity: Math.random() * 0.5 + 0.25,
         });
       }
     };
@@ -50,8 +50,9 @@ const NetworkBackground = () => {
         node.x, node.y, 0,
         node.x, node.y, node.radius * 3
       );
-      gradient.addColorStop(0, `hsla(180, 100%, 70%, ${node.opacity})`);
-      gradient.addColorStop(0.5, `hsla(180, 100%, 50%, ${node.opacity * 0.5})`);
+      // matrix-green glow
+      gradient.addColorStop(0, `hsla(140, 100%, 55%, ${node.opacity})`);
+      gradient.addColorStop(0.5, `hsla(140, 90%, 40%, ${node.opacity * 0.6})`);
       gradient.addColorStop(1, "transparent");
 
       ctx.beginPath();
@@ -61,31 +62,58 @@ const NetworkBackground = () => {
 
       ctx.beginPath();
       ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(180, 100%, 80%, ${node.opacity})`;
+      ctx.fillStyle = `hsla(140, 90%, 65%, ${node.opacity})`;
       ctx.fill();
+
+      // occasional pulse
+      if (Math.random() > 0.997) {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius * 8, 0, Math.PI * 2);
+        ctx.strokeStyle = `hsla(140, 90%, 40%, ${node.opacity * 0.07})`;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
     };
 
     const drawLine = (node1: Node, node2: Node, distance: number, maxDistance: number) => {
       if (!ctx) return;
       
-      const opacity = (1 - distance / maxDistance) * 0.4;
+      const opacity = (1 - distance / maxDistance) * 0.45;
       const gradient = ctx.createLinearGradient(node1.x, node1.y, node2.x, node2.y);
-      gradient.addColorStop(0, `hsla(180, 100%, 50%, ${opacity})`);
-      gradient.addColorStop(0.5, `hsla(200, 100%, 60%, ${opacity * 0.8})`);
-      gradient.addColorStop(1, `hsla(280, 100%, 65%, ${opacity})`);
+      gradient.addColorStop(0, `hsla(140, 100%, 45%, ${opacity})`);
+      gradient.addColorStop(0.5, `hsla(140, 90%, 30%, ${opacity * 0.8})`);
+      gradient.addColorStop(1, `hsla(160, 70%, 40%, ${opacity})`);
 
       ctx.beginPath();
       ctx.moveTo(node1.x, node1.y);
       ctx.lineTo(node2.x, node2.y);
       ctx.strokeStyle = gradient;
-      ctx.lineWidth = 0.5;
+      ctx.lineWidth = 0.6;
       ctx.stroke();
+    };
+
+    const spawnPacketBurst = (count = 8) => {
+      for (let i = 0; i < count; i++) {
+        const packet = document.createElement("div");
+        packet.className = "packet";
+        const left = 20 + Math.random() * 140; // spawn from left area
+        const top = window.innerHeight - 120 + Math.random() * 80;
+        packet.style.left = `${left}px`;
+        packet.style.top = `${top}px`;
+        // small random rotation
+        packet.style.transform = `rotate(${Math.random() * 30 - 15}deg) scaleX(0.2)`;
+        document.body.appendChild(packet);
+        // remove after animation
+        setTimeout(() => packet.remove(), 1600);
+      }
     };
 
     const animate = () => {
       if (!ctx || !canvas) return;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // subtle background fade for terminal-like grid
+      ctx.fillStyle = "rgba(0,0,0,0.12)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const maxDistance = 150;
       const mouseMaxDistance = 200;
@@ -98,8 +126,8 @@ const NetworkBackground = () => {
 
         if (mouseDistance < mouseMaxDistance && mouseDistance > 0) {
           const force = (mouseMaxDistance - mouseDistance) / mouseMaxDistance;
-          node.vx += (dx / mouseDistance) * force * 0.02;
-          node.vy += (dy / mouseDistance) * force * 0.02;
+          node.vx += (dx / mouseDistance) * force * 0.03;
+          node.vy += (dy / mouseDistance) * force * 0.03;
         }
 
         // Update position
@@ -107,8 +135,8 @@ const NetworkBackground = () => {
         node.y += node.vy;
 
         // Damping
-        node.vx *= 0.99;
-        node.vy *= 0.99;
+        node.vx *= 0.985;
+        node.vy *= 0.985;
 
         // Boundary check
         if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
@@ -135,7 +163,7 @@ const NetworkBackground = () => {
           ctx.beginPath();
           ctx.moveTo(node.x, node.y);
           ctx.lineTo(mouseRef.current.x, mouseRef.current.y);
-          ctx.strokeStyle = `hsla(180, 100%, 60%, ${opacity})`;
+          ctx.strokeStyle = `hsla(140, 90%, 40%, ${opacity})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
@@ -150,6 +178,16 @@ const NetworkBackground = () => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
 
+    const socListener = (e: Event) => {
+      const detail: any = (e as CustomEvent).detail || {};
+      if (detail.type === "packet-burst") {
+        spawnPacketBurst(10);
+      }
+      if (detail.type === "submit-start") {
+        spawnPacketBurst(6);
+      }
+    };
+
     resize();
     createNodes();
     animate();
@@ -159,6 +197,7 @@ const NetworkBackground = () => {
       createNodes();
     });
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("soc-action", socListener as EventListener);
 
     return () => {
       if (animationRef.current) {
@@ -166,6 +205,7 @@ const NetworkBackground = () => {
       }
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("soc-action", socListener as EventListener);
     };
   }, []);
 

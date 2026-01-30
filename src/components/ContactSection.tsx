@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Mail, MapPin, Linkedin, Github, ExternalLink, Phone, Code } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
+import ContactForm from "./ContactForm";
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -80,53 +81,11 @@ const ContactSection = () => {
               </div>
             </div>
 
-            {/* Social Links & CTA */}
+            {/* Interactive Form & SOC Console */}
             <div className="flex flex-col justify-between">
               <div>
-                <p className="text-sm text-muted-foreground mb-4">Connect with me</p>
-                <div className="flex gap-4 justify-center">
-                  {[
-                    { icon: Github, href: "https://github.com/mveekshan1", label: "GitHub" },
-                    { icon: Linkedin, href: "https://www.linkedin.com/in/mveekshangoud", label: "LinkedIn" },
-                    { logo: "HackerRank", href: "https://www.hackerrank.com/profile/veekshanmerugu11", label: "HackerRank" },
-                  ].map((social, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : {}}
-                      transition={{ delay: 0.4 + i * 0.1 }}
-                      className="flex flex-col items-center gap-2"
-                    >
-                      <motion.a
-                        href={social.href}
-                        className="w-12 h-12 rounded-full bg-secondary border border-primary/20 
-                                   flex items-center justify-center hover:border-primary/50 
-                                   hover:node-glow transition-all duration-300 group"
-                        aria-label={social.label}
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        {social.icon ? (
-                          <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary 
-                                                  transition-colors" />
-                        ) : (
-                          <img src="/hackerrank-logo.svg" alt={social.label} className="w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity" />
-                        )}
-                      </motion.a>
-                      <span className="text-xs text-muted-foreground">{social.label}</span>
-                    </motion.div>
-                  ))}
-                </div>
+                <ContactForm />
               </div>
-
-              <a
-                href="mailto:merugu.veekshangoud@gmail.com"
-                className="mt-6 flex items-center justify-center gap-2 px-6 py-4 
-                          bg-primary text-primary-foreground rounded-lg font-semibold
-                          hover:shadow-glow-intense transition-all duration-300 hover:scale-[1.02]"
-              >
-                <ExternalLink size={18} />
-                Send Email
-              </a>
             </div>
           </div>
         </motion.div>

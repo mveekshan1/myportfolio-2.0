@@ -42,6 +42,8 @@
     --glow-primary: 180 100% 50%;
     --glow-accent: 280 100% 65%;
     --glow-secondary: 200 100% 60%;
+    --glow-matrix: 140 100% 45%;
+    --matrix-green: 140 100% 45%;
     --node-color: 180 100% 70%;
     --line-color: 200 80% 50%;
 
@@ -122,6 +124,39 @@
 
   .animate-network-line {
     animation: network-pulse 4s ease-in-out infinite;
+  }
+
+  /* SOC / Terminal styles */
+  .terminal-panel {
+    background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.25));
+    border: 1px solid rgba(16, 185, 129, 0.08);
+    box-shadow: 0 8px 40px rgba(16, 185, 129, 0.05);
+    color: hsl(var(--matrix-green));
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .terminal-line {
+    color: rgba(110, 231, 183, 0.9);
+    letter-spacing: 0.2px;
+    padding: 2px 0;
+    white-space: pre-wrap;
+  }
+
+  /* packet animation helper (used by background canvas event) */
+  .packet {
+    position: absolute;
+    width: 8px;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(110,231,183,1), rgba(6,95,70,0.9));
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(110,231,183,0.6);
+    animation: packet-fly 1200ms linear forwards;
+  }
+
+  @keyframes packet-fly {
+    0% { transform: translateY(0) translateX(0) scaleX(0.2); opacity: 1 }
+    70% { transform: translateY(-20vh) translateX(20vw) scaleX(1); opacity: 0.9 }
+    100% { transform: translateY(-30vh) translateX(40vw) scaleX(0.4); opacity: 0 }
   }
 }
 
