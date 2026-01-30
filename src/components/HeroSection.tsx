@@ -1,112 +1,148 @@
-import { motion } from "framer-motion";
-import { Code } from "lucide-react";
+import { useEffect, useState } from 'react';
+import { ArrowDown, Shield, Activity, Lock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
+  const [displayText, setDisplayText] = useState('');
+  const fullText = 'Cybersecurity Engineer | SOC Analyst (Aspirant)';
+
+  useEffect(() => {
+    let index = 0;
+    const timer = setInterval(() => {
+      if (index <= fullText.length) {
+        setDisplayText(fullText.slice(0, index));
+        index++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 50);
+    return () => clearInterval(timer);
+  }, []);
+
+  const statusItems = [
+    { icon: Shield, label: 'Defense Systems', status: 'ACTIVE', color: 'text-success' },
+    { icon: Activity, label: 'Threat Monitoring', status: 'ONLINE', color: 'text-primary' },
+    { icon: Lock, label: 'Security Protocols', status: 'ENGAGED', color: 'text-accent' },
+  ];
+
   return (
-    <section className="relative min-h-screen px-6 pt-24 overflow-hidden flex items-center">
-      {/* Background Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-glow-primary/10 rounded-full blur-3xl animate-pulse-glow" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse-glow" />
+    <section id="hero" className="min-h-screen flex items-center justify-center relative pt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
+          <div className="space-y-8 animate-fade-in">
+            {/* Status Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5">
+              <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
+              <span className="text-sm font-mono text-primary">System Online</span>
+            </div>
 
-      {/* Content readability overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70 pointer-events-none" />
+            {/* Name */}
+            <div>
+              <p className="text-muted-foreground font-mono text-sm mb-2">
+                &gt; IDENTITY_VERIFIED
+              </p>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+                Merugu{' '}
+                <span className="text-primary text-glow-cyan">Veekshan</span>{' '}
+                Goud
+              </h1>
+            </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
+            {/* Role with Typing Effect */}
+            <div className="font-mono text-lg sm:text-xl text-muted-foreground">
+              <span className="text-primary">&gt;</span>{' '}
+              <span>{displayText}</span>
+              <span className="cursor-blink text-primary" />
+            </div>
 
-        {/* TOP BADGE */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex justify-center mb-12"
-        >
-          <span
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full 
-                       bg-secondary/50 border border-primary/20 
-                       text-primary mono-text text-sm tracking-wider"
-          >
-            <Code size={16} />
-            COMPUTER SCIENCE AND ENGINEERING
-          </span>
-        </motion.div>
+            {/* Description */}
+            <p className="text-muted-foreground max-w-lg leading-relaxed">
+              Computer Science undergraduate specializing in network security, 
+              threat detection, and machine learning-based security solutions. 
+              Building the next generation of cyber defense systems.
+            </p>
 
-        {/* PHOTO + TITLE ROW */}
-        <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-10">
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-4">
+              <a href="#projects">
+                <Button size="lg" className="glow-cyan group">
+                  <span>View Projects</span>
+                  <ArrowDown className="w-4 h-4 ml-2 group-hover:animate-bounce" />
+                </Button>
+              </a>
+              <a href="#contact">
+                <Button size="lg" variant="outline" className="border-primary/50 hover:border-primary hover:bg-primary/10">
+                  Contact Me
+                </Button>
+              </a>
+            </div>
+          </div>
 
-          {/* PROFILE PHOTO */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="flex justify-center md:justify-end"
-          >
-            <motion.img
-              src="/profile.jpg"
-              alt="Profile"
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="w-40 h-52 md:w-52 md:h-60 rounded-full object-cover
-                         border-2 border-primary/60 shadow-glow"
-            />
-          </motion.div>
+          {/* Right Content - Status Dashboard */}
+          <div className="hidden lg:block">
+            <div className="relative">
+              {/* Main Dashboard Card */}
+              <div className="bg-card/80 backdrop-blur-sm border border-border rounded-lg p-6 space-y-6">
+                {/* Header */}
+                <div className="flex items-center justify-between border-b border-border pb-4">
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-5 h-5 text-primary" />
+                    <span className="font-mono text-sm text-foreground">SOC_DASHBOARD</span>
+                  </div>
+                  <div className="flex gap-1">
+                    <span className="w-3 h-3 rounded-full bg-destructive/80" />
+                    <span className="w-3 h-3 rounded-full bg-accent/80" />
+                    <span className="w-3 h-3 rounded-full bg-success/80" />
+                  </div>
+                </div>
 
-          {/* TITLE */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-center md:text-left md:col-span-2 mt-6 md:mt-0"
-          >
-            <h1 className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              <span className="glow-text text-primary whitespace-nowrap">
-                Computer Science
-              </span>
-              <br />
-              <span className="text-foreground">Engineering</span>
-            </h1>
-          </motion.div>
+                {/* Status Items */}
+                <div className="space-y-4">
+                  {statusItems.map((item, index) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center justify-between p-3 rounded bg-muted/50 border border-border/50 animate-fade-in"
+                      style={{ animationDelay: `${(index + 1) * 200}ms` }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <item.icon className={`w-5 h-5 ${item.color}`} />
+                        <span className="font-mono text-sm text-muted-foreground">
+                          {item.label}
+                        </span>
+                      </div>
+                      <span className={`font-mono text-xs px-2 py-1 rounded ${item.color} bg-current/10`}>
+                        {item.status}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Live Metrics */}
+                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-primary">99.9%</p>
+                    <p className="text-xs text-muted-foreground font-mono">Uptime</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-success">0</p>
+                    <p className="text-xs text-muted-foreground font-mono">Threats Detected</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Decorative Elements */}
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl" />
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/10 rounded-full blur-2xl" />
+            </div>
+          </div>
         </div>
 
-        {/* DESCRIPTION + CTA */}
-        <div className="mt-14 text-center">
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 leading-relaxed"
-          >
-            Focused on computer science fundamentals, system behavior, and applied
-            problem solving through academic projects and hands-on labs.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="text-base md:text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-12 leading-relaxed"
-          >
-            I work best at the intersection of systems, data, and structured troubleshooting —
-            understanding how things behave, why they break, and how to detect anomalies.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex justify-center"
-          >
-            <a
-              href="#about"
-              className="relative px-10 py-4 rounded-lg font-semibold text-primary
-                         border border-primary/40 bg-secondary/30
-                         hover:bg-primary hover:text-primary-foreground
-                         transition-all duration-300"
-            >
-              Enter Portfolio
-            </a>
-          </motion.div>
-
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
+            <ArrowDown className="w-6 h-6" />
+          </a>
         </div>
       </div>
     </section>

@@ -1,220 +1,177 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 interface Node {
   x: number;
   y: number;
   vx: number;
   vy: number;
-  radius: number;
-  opacity: number;
+  connections: number[];
+}
+
+interface Packet {
+  fromNode: number;
+  toNode: number;
+  progress: number;
+  speed: number;
 }
 
 const NetworkBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const nodesRef = useRef<Node[]>([]);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const animationRef = useRef<number>();
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    let animationId: number;
+    let nodes: Node[] = [];
+    let packets: Packet[] = [];
 
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      initNodes();
     };
 
-    const createNodes = () => {
-      const nodeCount = Math.floor((window.innerWidth * window.innerHeight) / 15000);
-      nodesRef.current = [];
+    const initNodes = () => {
+      const nodeCount = Math.min(Math.floor((canvas.width * canvas.height) / 40000), 25);
+      nodes = [];
 
       for (let i = 0; i < nodeCount; i++) {
-        nodesRef.current.push({
+        nodes.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          radius: Math.random() * 2 + 1,
-          opacity: Math.random() * 0.5 + 0.25,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          connections: [],
         });
       }
+
+      // Create connections
+      nodes.forEach((node, i) => {
+        const distances: { index: number; dist: number }[] = [];
+        nodes.forEach((other, j) => {
+          if (i !== j) {
+            const dist = Math.hypot(node.x - other.x, node.y - other.y);
+            distances.push({ index: j, dist });
+          }
+        });
+        distances.sort((a, b) => a.dist - b.dist);
+        node.connections = distances.slice(0, 3).map(d => d.index);
+      });
     };
 
-    const drawNode = (node: Node) => {
-      if (!ctx) return;
-      
-      const gradient = ctx.createRadialGradient(
-        node.x, node.y, 0,
-        node.x, node.y, node.radius * 3
-      );
-      // matrix-green glow
-      gradient.addColorStop(0, `hsla(140, 100%, 55%, ${node.opacity})`);
-      gradient.addColorStop(0.5, `hsla(140, 90%, 40%, ${node.opacity * 0.6})`);
-      gradient.addColorStop(1, "transparent");
-
-      ctx.beginPath();
-      ctx.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
-      ctx.fillStyle = gradient;
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(140, 90%, 65%, ${node.opacity})`;
-      ctx.fill();
-
-      // occasional pulse
-      if (Math.random() > 0.997) {
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius * 8, 0, Math.PI * 2);
-        ctx.strokeStyle = `hsla(140, 90%, 40%, ${node.opacity * 0.07})`;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-    };
-
-    const drawLine = (node1: Node, node2: Node, distance: number, maxDistance: number) => {
-      if (!ctx) return;
-      
-      const opacity = (1 - distance / maxDistance) * 0.45;
-      const gradient = ctx.createLinearGradient(node1.x, node1.y, node2.x, node2.y);
-      gradient.addColorStop(0, `hsla(140, 100%, 45%, ${opacity})`);
-      gradient.addColorStop(0.5, `hsla(140, 90%, 30%, ${opacity * 0.8})`);
-      gradient.addColorStop(1, `hsla(160, 70%, 40%, ${opacity})`);
-
-      ctx.beginPath();
-      ctx.moveTo(node1.x, node1.y);
-      ctx.lineTo(node2.x, node2.y);
-      ctx.strokeStyle = gradient;
-      ctx.lineWidth = 0.6;
-      ctx.stroke();
-    };
-
-    const spawnPacketBurst = (count = 8) => {
-      for (let i = 0; i < count; i++) {
-        const packet = document.createElement("div");
-        packet.className = "packet";
-        const left = 20 + Math.random() * 140; // spawn from left area
-        const top = window.innerHeight - 120 + Math.random() * 80;
-        packet.style.left = `${left}px`;
-        packet.style.top = `${top}px`;
-        // small random rotation
-        packet.style.transform = `rotate(${Math.random() * 30 - 15}deg) scaleX(0.2)`;
-        document.body.appendChild(packet);
-        // remove after animation
-        setTimeout(() => packet.remove(), 1600);
-      }
-    };
-
-    const animate = () => {
-      if (!ctx || !canvas) return;
-
-      // subtle background fade for terminal-like grid
-      ctx.fillStyle = "rgba(0,0,0,0.12)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const maxDistance = 150;
-      const mouseMaxDistance = 200;
-
-      nodesRef.current.forEach((node, i) => {
-        // Mouse attraction
-        const dx = mouseRef.current.x - node.x;
-        const dy = mouseRef.current.y - node.y;
-        const mouseDistance = Math.sqrt(dx * dx + dy * dy);
-
-        if (mouseDistance < mouseMaxDistance && mouseDistance > 0) {
-          const force = (mouseMaxDistance - mouseDistance) / mouseMaxDistance;
-          node.vx += (dx / mouseDistance) * force * 0.03;
-          node.vy += (dy / mouseDistance) * force * 0.03;
+    const spawnPacket = () => {
+      if (packets.length < 8 && nodes.length > 1) {
+        const fromNode = Math.floor(Math.random() * nodes.length);
+        const toNode = nodes[fromNode].connections[
+          Math.floor(Math.random() * nodes[fromNode].connections.length)
+        ];
+        if (toNode !== undefined) {
+          packets.push({
+            fromNode,
+            toNode,
+            progress: 0,
+            speed: 0.005 + Math.random() * 0.01,
+          });
         }
+      }
+    };
 
-        // Update position
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw connections
+      ctx.strokeStyle = 'rgba(34, 211, 238, 0.08)';
+      ctx.lineWidth = 1;
+      nodes.forEach((node, i) => {
+        node.connections.forEach(j => {
+          if (j > i) {
+            ctx.beginPath();
+            ctx.moveTo(node.x, node.y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        });
+      });
+
+      // Draw nodes
+      nodes.forEach(node => {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(34, 211, 238, 0.4)';
+        ctx.fill();
+
+        // Outer glow
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, 8, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(34, 211, 238, 0.05)';
+        ctx.fill();
+      });
+
+      // Draw and update packets
+      packets = packets.filter(packet => {
+        packet.progress += packet.speed;
+        if (packet.progress >= 1) return false;
+
+        const from = nodes[packet.fromNode];
+        const to = nodes[packet.toNode];
+        const x = from.x + (to.x - from.x) * packet.progress;
+        const y = from.y + (to.y - from.y) * packet.progress;
+
+        // Packet glow
+        const gradient = ctx.createRadialGradient(x, y, 0, x, y, 12);
+        gradient.addColorStop(0, 'rgba(34, 211, 238, 0.8)');
+        gradient.addColorStop(0.5, 'rgba(34, 211, 238, 0.2)');
+        gradient.addColorStop(1, 'rgba(34, 211, 238, 0)');
+        ctx.beginPath();
+        ctx.arc(x, y, 12, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        // Packet core
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(34, 211, 238, 1)';
+        ctx.fill();
+
+        return true;
+      });
+
+      // Update node positions
+      nodes.forEach(node => {
         node.x += node.vx;
         node.y += node.vy;
 
-        // Damping
-        node.vx *= 0.985;
-        node.vy *= 0.985;
-
-        // Boundary check
         if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
         if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
 
         node.x = Math.max(0, Math.min(canvas.width, node.x));
         node.y = Math.max(0, Math.min(canvas.height, node.y));
-
-        // Draw connections
-        for (let j = i + 1; j < nodesRef.current.length; j++) {
-          const other = nodesRef.current[j];
-          const distance = Math.sqrt(
-            Math.pow(node.x - other.x, 2) + Math.pow(node.y - other.y, 2)
-          );
-
-          if (distance < maxDistance) {
-            drawLine(node, other, distance, maxDistance);
-          }
-        }
-
-        // Draw mouse connections
-        if (mouseDistance < mouseMaxDistance) {
-          const opacity = (1 - mouseDistance / mouseMaxDistance) * 0.6;
-          ctx.beginPath();
-          ctx.moveTo(node.x, node.y);
-          ctx.lineTo(mouseRef.current.x, mouseRef.current.y);
-          ctx.strokeStyle = `hsla(140, 90%, 40%, ${opacity})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
-
-        drawNode(node);
       });
 
-      animationRef.current = requestAnimationFrame(animate);
-    };
+      if (Math.random() < 0.02) spawnPacket();
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
-    };
-
-    const socListener = (e: Event) => {
-      const evt = e as CustomEvent<{ type?: "packet-burst" | "submit-start" | "submit-end" }>;
-      const type = evt?.detail?.type;
-      if (type === "packet-burst") {
-        spawnPacketBurst(10);
-      }
-      if (type === "submit-start") {
-        spawnPacketBurst(6);
-      }
+      animationId = requestAnimationFrame(draw);
     };
 
     resize();
-    createNodes();
-    animate();
-
-    window.addEventListener("resize", () => {
-      resize();
-      createNodes();
-    });
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("soc-action", socListener as EventListener);
+    window.addEventListener('resize', resize);
+    draw();
 
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("soc-action", socListener as EventListener);
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationId);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 0 }}
+      className="fixed inset-0 z-0 pointer-events-none"
+      style={{ opacity: 0.6 }}
     />
   );
 };

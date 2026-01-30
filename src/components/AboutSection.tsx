@@ -1,146 +1,166 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { Search, FileText, Users } from "lucide-react";
+import { GraduationCap, MapPin, Mail, Globe, Linkedin, Calendar } from 'lucide-react';
 
 const AboutSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const education = [
+    {
+      degree: "Bachelor of Technology (B.Tech)",
+      field: "Computer Science and Engineering",
+      institution: "Malla Reddy College of Engineering",
+      location: "Hyderabad, India",
+      period: "2022 – Present",
+      grade: "CGPA: 7.53 / 10",
+      details: "Core coursework in Computer Networks, Operating Systems, DBMS, Algorithms, Software Engineering, with focus on Machine Learning and AI.",
+    },
+    {
+      degree: "Intermediate (12th)",
+      field: "Science (MPC)",
+      institution: "Excellencia Junior College",
+      location: "Shamirpet, India",
+      period: "2020 – 2022",
+      grade: "59.5%",
+      details: "Mathematics, Physics, and Chemistry with emphasis on analytical reasoning.",
+    },
+    {
+      degree: "Secondary School Certificate (10th)",
+      field: "General Education",
+      institution: "Meridian High School",
+      location: "Siddipet, India",
+      period: "2019 – 2020",
+      grade: "GPA: 10.0",
+      details: "Core secondary education with focus on mathematics and science.",
+    },
+  ];
 
-  const highlights = [
-    { icon: Search, text: "Analyzing system behavior under different conditions" },
-    { icon: FileText, text: "Documenting observations clearly" },
-    { icon: Users, text: "Supporting users and teams through structured problem-solving" },
+  const contactInfo = [
+    { icon: Mail, label: "Email", value: "merugu.veekshangoud@gmail.com", href: "mailto:merugu.veekshangoud@gmail.com" },
+    { icon: MapPin, label: "Location", value: "Siddipet, Telangana, India", href: null },
+    { icon: Linkedin, label: "LinkedIn", value: "mveekshangoud", href: "https://www.linkedin.com/in/mveekshangoud" },
+    { icon: Globe, label: "Portfolio", value: "myportfolio-veekshan", href: "https://myportfolio-veekshan.netlify.app/" },
   ];
 
   return (
-    <section id="about" className="relative py-32 px-6" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="grid lg:grid-cols-2 gap-16 items-center"
-        >
-          {/* Node visualization */}
-          <div className="relative h-80 lg:h-96">
-            <div className="absolute inset-0 flex items-center justify-center">
-              {/* Central node */}
-              <motion.div
-                animate={{ scale: [1, 1.12, 1] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-                className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/80 to-accent/60 
-                           node-glow flex items-center justify-center z-10"
-                style={{ willChange: "transform" }}
-              >
-                <span className="text-2xl font-bold text-primary-foreground">2026</span>
-              </motion.div>
+    <section id="about" className="py-20 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="mb-16 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-muted/50 mb-4">
+            <span className="font-mono text-sm text-muted-foreground">&gt; PROFILE_ANALYSIS</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+            About <span className="text-primary">Me</span>
+          </h2>
+        </div>
 
-              {/* Orbiting nodes */}
-              {[0, 1, 2, 3, 4, 5].map((i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-12 h-12 rounded-full bg-secondary border border-primary/30"
-                  animate={{
-                    rotate: 360,
-                  }}
-                  transition={{
-                    duration: 20 + i * 5,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  style={{
-                    transformOrigin: "center",
-                  }}
-                >
-                  <motion.div
-                    className="absolute w-4 h-4 rounded-full bg-primary/60 node-glow"
-                    style={{
-                      top: "-50%",
-                      left: "50%",
-                      transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-${80 + i * 20}px)`,
-                    }}
-                  />
-                </motion.div>
-              ))}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Profile Card */}
+          <div className="lg:col-span-1">
+            <div className="bg-card border border-border rounded-lg p-6 sticky top-24">
+              {/* Profile Header */}
+              <div className="text-center mb-6">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary p-1">
+                  <div className="w-full h-full rounded-full bg-card flex items-center justify-center">
+                    <span className="text-3xl font-bold text-primary">MV</span>
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-foreground">Merugu Veekshan Goud</h3>
+                <p className="text-sm text-muted-foreground font-mono mt-1">CS Undergraduate</p>
+              </div>
 
-              {/* Connection lines */}
-              <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
-                {[60, 100, 140].map((radius, i) => (
-                  <circle
-                    key={i}
-                    cx="50%"
-                    cy="50%"
-                    r={radius}
-                    fill="none"
-                    stroke="hsl(180 100% 50% / 0.1)"
-                    strokeWidth="1"
-                    strokeDasharray="4 4"
-                  />
+              {/* Contact Info */}
+              <div className="space-y-3">
+                {contactInfo.map((item) => (
+                  <div key={item.label} className="flex items-center gap-3 text-sm">
+                    <item.icon className="w-4 h-4 text-primary shrink-0" />
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary transition-colors truncate"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <span className="text-muted-foreground truncate">{item.value}</span>
+                    )}
+                  </div>
                 ))}
-              </svg>
+              </div>
+
+              {/* Languages */}
+              <div className="mt-6 pt-6 border-t border-border">
+                <p className="font-mono text-xs text-muted-foreground mb-3">LANGUAGES</p>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Telugu</span>
+                    <span className="text-primary">Native</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">English</span>
+                    <span className="text-primary">C1/B2</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Content */}
-          <div>
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.2 }}
-              className="inline-block text-primary mono-text text-sm mb-4 tracking-wider"
-            >
-              // ABOUT ME
-            </motion.span>
+          {/* Education Timeline */}
+          <div className="lg:col-span-2">
+            <div className="bg-card border border-border rounded-lg p-6">
+              <div className="flex items-center gap-2 mb-6 pb-4 border-b border-border">
+                <GraduationCap className="w-5 h-5 text-primary" />
+                <h3 className="font-mono text-lg text-foreground">Education & Training</h3>
+              </div>
 
-            <motion.h2
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.3 }}
-              className="text-4xl md:text-5xl font-bold mb-6"
-            >
-              Building Foundations in <span className="text-primary glow-text">Computer Science</span>
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.4 }}
-              className="text-muted-foreground text-lg leading-relaxed mb-6 text-justify max-w-prose"
-            >
-             I am a Computer Science and Engineering undergraduate (2026) with hands-on experience in software development,
-             full-stack web applications, and Android app development gained through internships, academic projects, and student leadership roles. 
-             I have practical exposure to technical troubleshooting, software issue diagnosis, problem resolution, and documentation, following structured workflows and defined processes. 
-             I have worked with Python and Java (basic), cloud labs, and development tools while collaborating in remote, team-based environments. 
-             I am a motivated learner with strong problem-solving, communication, and adaptability skills, suited for fast-paced, service-oriented and technical roles.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.5 }}
-              className="space-y-3 mb-6"
-            >
-              {highlights.map((item, index) => (
-                <div key={index} className="flex items-center gap-3 text-muted-foreground">
-                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                    <item.icon size={16} className="text-primary" />
+              <div className="space-y-6">
+                {education.map((edu, index) => (
+                  <div
+                    key={index}
+                    className="relative pl-6 pb-6 last:pb-0 border-l-2 border-border last:border-transparent"
+                  >
+                    {/* Timeline dot */}
+                    <div className="absolute left-0 top-0 w-3 h-3 -translate-x-[7px] rounded-full bg-primary border-2 border-background" />
+                    
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h4 className="font-semibold text-foreground">{edu.degree}</h4>
+                        <span className="px-2 py-0.5 text-xs font-mono rounded bg-primary/10 text-primary">
+                          {edu.grade}
+                        </span>
+                      </div>
+                      <p className="text-primary text-sm">{edu.field}</p>
+                      <p className="text-muted-foreground text-sm">{edu.institution}</p>
+                      <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3" />
+                          {edu.location}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {edu.period}
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-2">{edu.details}</p>
+                    </div>
                   </div>
-                  <span>{item.text}</span>
-                </div>
-              ))}
-            </motion.div>
+                ))}
+              </div>
+            </div>
 
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.6 }}
-              className="text-muted-foreground/80 text-base leading-relaxed italic border-l-2 border-primary/50 pl-4"
-            >
-              I don't claim mastery — I focus on learning depth, correctness, and real-world applicability.
-            </motion.p>
+            {/* About Text */}
+            <div className="bg-card border border-border rounded-lg p-6 mt-8">
+              <p className="text-muted-foreground leading-relaxed">
+                Computer Science and Engineering undergraduate with a strong academic foundation in 
+                computer networks, operating systems, databases, and algorithms, with focused interest 
+                in <span className="text-primary">cybersecurity</span> and <span className="text-primary">machine learning</span>. 
+                Hands-on academic experience includes a semi-supervised machine learning project for 
+                DDoS attack detection using network traffic analysis. Seeking a Master's degree in 
+                Cybersecurity / Computer Science in Italy to develop advanced system-level and 
+                security-oriented expertise.
+              </p>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
