@@ -179,11 +179,12 @@ const NetworkBackground = () => {
     };
 
     const socListener = (e: Event) => {
-      const detail: any = (e as CustomEvent).detail || {};
-      if (detail.type === "packet-burst") {
+      const evt = e as CustomEvent<{ type?: "packet-burst" | "submit-start" | "submit-end" }>;
+      const type = evt?.detail?.type;
+      if (type === "packet-burst") {
         spawnPacketBurst(10);
       }
-      if (detail.type === "submit-start") {
+      if (type === "submit-start") {
         spawnPacketBurst(6);
       }
     };
