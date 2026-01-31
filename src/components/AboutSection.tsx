@@ -1,4 +1,4 @@
-import { GraduationCap, MapPin, Mail, Globe, Linkedin, Calendar } from 'lucide-react';
+import { GraduationCap, MapPin, Mail, Globe, Linkedin, Calendar, Github } from 'lucide-react';
 
 const AboutSection = () => {
   const education = [
@@ -35,7 +35,7 @@ const AboutSection = () => {
     { icon: Mail, label: "Email", value: "merugu.veekshangoud@gmail.com", href: "mailto:merugu.veekshangoud@gmail.com" },
     { icon: MapPin, label: "Location", value: "Siddipet, Telangana, India", href: null },
     { icon: Linkedin, label: "LinkedIn", value: "mveekshangoud", href: "https://www.linkedin.com/in/mveekshangoud" },
-    { icon: Globe, label: "Portfolio", value: "myportfolio-veekshan", href: "https://myportfolio-veekshan.netlify.app/" },
+    { icon: Github, label: "GitHub", value: "mveekshangoud", href: "https://github.com/mveekshan1"},
   ];
 
   return (
@@ -80,7 +80,7 @@ const AboutSection = () => {
               </div>
 
               {/* Contact Info */}
-              <div className="space-y-3">
+              <div className="space-y-3 text-left">
                 {contactInfo.map((item) => (
                   <div key={item.label} className="flex items-center gap-3 text-sm">
                     <item.icon className="w-4 h-4 text-primary shrink-0" />
@@ -134,7 +134,7 @@ const AboutSection = () => {
                     {/* Timeline dot */}
                     <div className="absolute left-0 top-0 w-3 h-3 -translate-x-[7px] rounded-full bg-primary border-2 border-background" />
                     
-                    <div className="space-y-2">
+                    <div className="space-y-2 text-left">
                       <div className="flex flex-wrap items-center gap-2">
                         <h4 className="font-semibold text-foreground">{edu.degree}</h4>
                         <span className="px-2 py-0.5 text-xs font-mono rounded bg-primary/10 text-primary">
@@ -153,7 +153,7 @@ const AboutSection = () => {
                           {edu.period}
                         </span>
                       </div>
-                      <p className="text-sm text-muted-foreground mt-2">{edu.details}</p>
+                      <p className="text-sm text-muted-foreground mt-2 text-justify">{edu.details}</p>
                     </div>
                   </div>
                 ))}
@@ -162,13 +162,13 @@ const AboutSection = () => {
 
             {/* About Text */}
             <div className="bg-card border border-border rounded-lg p-6 mt-8">
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed text-justify">
                 Computer Science and Engineering undergraduate with a strong academic foundation in 
                 computer networks, operating systems, databases, and algorithms, with focused interest 
                 in <span className="text-primary">cybersecurity</span> and <span className="text-primary">machine learning</span>. 
                 Hands-on academic experience includes a semi-supervised machine learning project for 
                 DDoS attack detection using network traffic analysis. Seeking a Master's degree in 
-                Cybersecurity / Computer Science in Italy to develop advanced system-level and 
+                Cybersecurity / Computer Science to develop advanced system-level and 
                 security-oriented expertise.
               </p>
             </div>
