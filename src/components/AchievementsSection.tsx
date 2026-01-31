@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Award, Users } from "lucide-react";
 
 const images = [
-  "/hackathons/hack4sdg/certificate.jpg",
-  "/hackathons/hack4sdg/stage.jpg",
-  "/hackathons/hack4sdg/team.jpg",
+  "/hackathons/hack4sdg/Certificate-HACK4SDG.jpg",
+  "/hackathons/hack4sdg/Recognizing.jpg",
+  "/hackathons/hack4sdg/TeamPhoto.jpg",
 ];
 
 const AchievementsSection = () => {
