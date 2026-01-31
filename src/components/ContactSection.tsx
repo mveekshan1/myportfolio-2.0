@@ -33,7 +33,9 @@ const ContactSection = () => {
     email: "",
     message: "",
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [logs, setLogs] = useState<LogEntry[]>([
     { timestamp: getTimestamp(), type: "info", message: "SOC_CONTACT_HANDLER initialized" },
     { timestamp: getTimestamp(), type: "info", message: "Awaiting incoming transmission..." },
@@ -68,23 +70,26 @@ const ContactSection = () => {
 
     try {
       await emailjs.send(
-        "service_ugkimrp",   
-        "template_ry2u9zg",  
+        "service_ugkimrp",
+        "template_ry2u9zg",
         {
           from_name: formData.name,
           from_email: formData.email,
+          reply_to: formData.email, // 🔥 REQUIRED FOR AUTO-REPLY
           message: formData.message,
+          time: new Date().toLocaleString(),
         },
-        "JjQxGUODHegPZvU53" 
+        "JjQxGUODHegPZvU53"
       );
 
       addLog("success", "Security scan: ALL_CLEAR");
       addLog("success", "EMAIL_DELIVERED successfully");
+      addLog("info", "Auto-reply sent to sender");
       addLog("info", "Response ETA: < 24 hours");
 
       toast({
         title: "Message Sent",
-        description: "Your message has been delivered to my inbox.",
+        description: "Your message was delivered. A confirmation email has been sent.",
       });
 
       setFormData({ name: "", email: "", message: "" });
@@ -133,11 +138,13 @@ const ContactSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Contact</h2>
-          <p className="text-muted-foreground">Secure communication channel</p>
+          <p className="text-muted-foreground">
+            Secure communication channel
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-          {/* FORM */}
+          {/* CONTACT FORM */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="flex items-center gap-2 text-sm font-medium mb-2">
@@ -182,7 +189,7 @@ const ContactSection = () => {
             </Button>
           </form>
 
-          {/* SOC LOG */}
+          {/* SOC LOG PANEL */}
           <div className="bg-muted rounded-lg p-4">
             <h3 className="flex items-center gap-2 font-semibold mb-4">
               <Shield className="h-5 w-5" /> SEC LIVE FEED
@@ -192,7 +199,9 @@ const ContactSection = () => {
               {logs.map((log, index) => (
                 <div key={index} className={`flex gap-2 ${getLogColor(log.type)}`}>
                   {getLogIcon(log.type)}
-                  <span className="text-muted-foreground">[{log.timestamp}]</span>
+                  <span className="text-muted-foreground">
+                    [{log.timestamp}]
+                  </span>
                   <span>{log.message}</span>
                 </div>
               ))}
