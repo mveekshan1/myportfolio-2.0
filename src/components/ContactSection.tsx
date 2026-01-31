@@ -75,7 +75,7 @@ const ContactSection = () => {
         {
           from_name: formData.name,
           from_email: formData.email,
-          reply_to: formData.email, // 🔥 REQUIRED FOR AUTO-REPLY
+          reply_to: formData.email, 
           message: formData.message,
           time: new Date().toLocaleString(),
         },
