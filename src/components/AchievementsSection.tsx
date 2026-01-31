@@ -158,7 +158,7 @@ const AchievementsSection = () => {
             Technical and Student Lead – Techie-Hub CSE
           </h3>
 
-          <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
+          <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl text-justify">
             Active contributor and student lead in Techie-Hub CSE, supporting
             technical mentoring, peer learning, and departmental initiatives.
             Played a role in organizing intra-college hackathons and assisting
