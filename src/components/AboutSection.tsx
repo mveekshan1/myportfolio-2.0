@@ -58,9 +58,22 @@ const AboutSection = () => {
               {/* Profile Header */}
               <div className="text-center mb-6">
                 <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary p-1">
-                  <div className="w-full h-full rounded-full bg-card flex items-center justify-center">
-                    <span className="text-3xl font-bold text-primary">MV</span>
-                  </div>
+                  <div className="w-full h-full rounded-full bg-card flex items-center justify-center overflow-hidden">
+                  <img
+                    src="/profile.jpg"
+                    alt="Merugu Veekshan Goud"
+                    className="w-full h-full object-cover object-center"
+                    style={{ objectPosition: '50% 30%' }}
+                    loading="lazy"
+                    onError={(e) => {
+                      const img = e.currentTarget as HTMLImageElement;
+                      img.classList.add('hidden');
+                      const fallback = img.nextElementSibling as HTMLElement | null;
+                      if (fallback) fallback.classList.remove('hidden');
+                    }}
+                  />
+                  <span className="text-3xl font-bold text-primary hidden">MV</span>
+                </div>
                 </div>
                 <h3 className="text-xl font-semibold text-foreground">Merugu Veekshan Goud</h3>
                 <p className="text-sm text-muted-foreground font-mono mt-1">CS Undergraduate</p>
