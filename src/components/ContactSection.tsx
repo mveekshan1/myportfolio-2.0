@@ -223,7 +223,7 @@ const ContactSection = () => {
           <div className="bg-muted rounded-lg p-4">
             <h3 className="text-lg font-semibold mb-4 flex items-center">
               <Shield className="mr-2 h-5 w-5" />
-              SOC Live Feed
+              Sec Live Feed
             </h3>
 
             <div className="space-y-2 max-h-64 overflow-y-auto">
