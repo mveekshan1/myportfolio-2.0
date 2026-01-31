@@ -45,8 +45,14 @@ const ContactSection = () => {
     setLogs((prev) => [...prev, { timestamp: getTimestamp(), type, message }]);
   }, []);
 
+  const isInitialMount = useRef(true);
+
   useEffect(() => {
-    logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [logs]);
 
   const handleSubmit = async (e: React.FormEvent) => {
