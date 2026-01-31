@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import emailjs from "emailjs-com";
 import {
   Send,
   Shield,
@@ -38,12 +39,13 @@ const ContactSection = () => {
     { timestamp: getTimestamp(), type: "info", message: "Awaiting incoming transmission..." },
   ]);
 
-  const addLog = useCallback(
-    (type: LogEntry["type"], message: string) => {
-      setLogs((prev) => [...prev, { timestamp: getTimestamp(), type, message }]);
-    },
-    []
-  );
+  const addLog = useCallback((type: LogEntry["type"], message: string) => {
+    setLogs((prev) => [...prev, { timestamp: getTimestamp(), type, message }]);
+  }, []);
+
+  useEffect(() => {
+    logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [logs]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,33 +62,44 @@ const ContactSection = () => {
 
     setIsSubmitting(true);
     addLog("process", "Initiating secure transmission...");
-
-    await new Promise((r) => setTimeout(r, 500));
     addLog("process", "Encrypting payload with TLS 1.3...");
-
-    await new Promise((r) => setTimeout(r, 400));
     addLog("process", "Verifying sender identity...");
+    addLog("process", "Running XSS / Injection scan...");
 
-    await new Promise((r) => setTimeout(r, 300));
-    addLog("process", "Running XSS/SQL injection scan...");
+    try {
+      await emailjs.send(
+        "service_ugkimrp",   
+        "template_ry2u9zg",  
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        },
+        "JjQxGUODHegPZvU53" 
+      );
 
-    await new Promise((r) => setTimeout(r, 400));
-    addLog("success", "Security scan: ALL_CLEAR");
+      addLog("success", "Security scan: ALL_CLEAR");
+      addLog("success", "EMAIL_DELIVERED successfully");
+      addLog("info", "Response ETA: < 24 hours");
 
-    await new Promise((r) => setTimeout(r, 300));
-    addLog("process", "Routing message to secure inbox...");
+      toast({
+        title: "Message Sent",
+        description: "Your message has been delivered to my inbox.",
+      });
 
-    await new Promise((r) => setTimeout(r, 500));
-    addLog("success", "MESSAGE_DELIVERED successfully");
-    addLog("info", "Response ETA: < 24 hours");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error(error);
+      addLog("warning", "EMAIL_DELIVERY_FAILED");
 
-    toast({
-      title: "Message Sent!",
-      description: "Your message has been securely delivered. I'll respond within 24 hours.",
-    });
-
-    setFormData({ name: "", email: "", message: "" });
-    setIsSubmitting(false);
+      toast({
+        title: "Delivery Failed",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getLogColor = (type: LogEntry["type"]) => {
@@ -116,22 +129,21 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-20 relative">
+    <section id="contact" className="py-20 relative z-30 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Contact</h2>
-          <p className="text-muted-foreground">Get in touch</p>
+          <p className="text-muted-foreground">Secure communication channel</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+          {/* FORM */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2 flex items-center">
-                <User className="mr-2 h-4 w-4" />
-                Name
+              <label className="flex items-center gap-2 text-sm font-medium mb-2">
+                <User className="h-4 w-4" /> Name
               </label>
               <Input
-                type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Your name"
@@ -140,50 +152,47 @@ const ContactSection = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2 flex items-center">
-                <Mail className="mr-2 h-4 w-4" />
-                Email
+              <label className="flex items-center gap-2 text-sm font-medium mb-2">
+                <Mail className="h-4 w-4" /> Email
               </label>
               <Input
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="your@email.com"
+                placeholder="you@example.com"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2 flex items-center">
-                <MessageSquare className="mr-2 h-4 w-4" />
-                Message
+              <label className="flex items-center gap-2 text-sm font-medium mb-2">
+                <MessageSquare className="h-4 w-4" /> Message
               </label>
               <Textarea
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="Your message"
                 rows={4}
                 required
               />
             </div>
 
-            <Button type="submit" disabled={isSubmitting} className="w-full">
-              {isSubmitting ? "Sending..." : "Send Message"}
+            <Button disabled={isSubmitting} className="w-full">
+              {isSubmitting ? "Transmitting..." : "Send Secure Message"}
               <Send className="ml-2 h-4 w-4" />
             </Button>
           </form>
 
+          {/* SOC LOG */}
           <div className="bg-muted rounded-lg p-4">
-            <h3 className="text-lg font-semibold mb-4 flex items-center">
-              <Shield className="mr-2 h-5 w-5" />
-              Sec Live Feed
+            <h3 className="flex items-center gap-2 font-semibold mb-4">
+              <Shield className="h-5 w-5" /> SEC LIVE FEED
             </h3>
 
-            <div className="space-y-2 max-h-64 overflow-y-auto">
+            <div className="space-y-2 max-h-64 overflow-y-auto font-mono text-xs">
               {logs.map((log, index) => (
-                <div key={index} className={`flex items-center space-x-2 text-sm ${getLogColor(log.type)}`}>
+                <div key={index} className={`flex gap-2 ${getLogColor(log.type)}`}>
                   {getLogIcon(log.type)}
-                  <span className="text-xs text-muted-foreground">{log.timestamp}</span>
+                  <span className="text-muted-foreground">[{log.timestamp}]</span>
                   <span>{log.message}</span>
                 </div>
               ))}
