@@ -165,8 +165,79 @@ const ContactSection = () => {
   return (
     <section id="contact" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* UI unchanged – omitted for brevity */}
-        {/* Your JSX below this point remains EXACTLY the same */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-4">Contact</h2>
+          <p className="text-muted-foreground">Get in touch</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-2 flex items-center">
+                <User className="mr-2 h-4 w-4" />
+                Name
+              </label>
+              <Input
+                type="text"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="Your name"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2 flex items-center">
+                <Mail className="mr-2 h-4 w-4" />
+                Email
+              </label>
+              <Input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="your@email.com"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2 flex items-center">
+                <MessageSquare className="mr-2 h-4 w-4" />
+                Message
+              </label>
+              <Textarea
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                placeholder="Your message"
+                rows={4}
+                required
+              />
+            </div>
+
+            <Button type="submit" disabled={isSubmitting} className="w-full">
+              {isSubmitting ? "Sending..." : "Send Message"}
+              <Send className="ml-2 h-4 w-4" />
+            </Button>
+          </form>
+
+          <div className="bg-muted rounded-lg p-4">
+            <h3 className="text-lg font-semibold mb-4 flex items-center">
+              <Shield className="mr-2 h-5 w-5" />
+              SOC Live Feed
+            </h3>
+
+            <div className="space-y-2 max-h-64 overflow-y-auto">
+              {logs.map((log, index) => (
+                <div key={index} className={`flex items-center space-x-2 text-sm ${getLogColor(log.type)}`}>
+                  {getLogIcon(log.type)}
+                  <span className="text-xs text-muted-foreground">{log.timestamp}</span>
+                  <span>{log.message}</span>
+                </div>
+              ))}
+              <div ref={logsEndRef} />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
