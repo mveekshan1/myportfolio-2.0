@@ -67,7 +67,7 @@ const HeroSection = () => {
               <a href="#projects">
                 <Button size="lg" className="glow-cyan group">
                   <span>View Projects</span>
-                  <ArrowDown className="w-4 h-4 ml-2 group-hover:animate-bounce" />
+                  <ArrowDown className="w-4 h-4 ml-2 group-hover:animate-bounce" aria-hidden="true" />
                 </Button>
               </a>
               <a href="#contact">
@@ -86,7 +86,7 @@ const HeroSection = () => {
                 {/* Header */}
                 <div className="flex items-center justify-between border-b border-border pb-4">
                   <div className="flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-primary" />
+                    <Shield className="w-5 h-5 text-primary" aria-hidden="true" />
                     <span className="font-mono text-sm text-foreground">Network Security Analysis Dashboard</span>
                   </div>
                   <div className="flex gap-1">
@@ -105,7 +105,7 @@ const HeroSection = () => {
                       style={{ animationDelay: `${(index + 1) * 200}ms` }}
                     >
                       <div className="flex items-center gap-3">
-                        <item.icon className={`w-5 h-5 ${item.color}`} />
+                        <item.icon className={`w-5 h-5 ${item.color}`} aria-hidden="true" />
                         <span className="font-mono text-sm text-muted-foreground">
                           {item.label}
                         </span>
@@ -140,7 +140,7 @@ const HeroSection = () => {
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
-            <ArrowDown className="w-6 h-6" />
+            <ArrowDown className="w-6 h-6" aria-hidden="true" />
           </a>
         </div>
       </div>
