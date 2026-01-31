@@ -57,7 +57,7 @@ const HeroSection = () => {
             </div>
 
             {/* Description */}
-            <p className="text-muted-foreground max-w-lg leading-relaxed">
+            <p className="text-muted-foreground max-w-lg leading-relaxed text-justify">
               Computer Science undergraduate with hands-on experience in network security and machine-learning-based DDoS attack detection, 
               focused on analyzing network traffic and identifying malicious patterns.
             </p>
