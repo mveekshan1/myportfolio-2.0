@@ -45,53 +45,6 @@ const ContactSection = () => {
     []
   );
 
-  /* Auto-scroll logs */
-  useEffect(() => {
-    logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [logs]);
-
-  /* Name monitoring */
-  useEffect(() => {
-    if (!formData.name) return;
-
-    addLog("process", "Input detected: name field populated");
-    const t = setTimeout(
-      () => addLog("success", "Name validation: PASSED"),
-      300
-    );
-
-    return () => clearTimeout(t);
-  }, [formData.name, addLog]);
-
-  /* Email monitoring */
-  useEffect(() => {
-    if (!formData.email) return;
-
-    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
-    if (!isValid) return;
-
-    addLog("process", "Validating email format...");
-    const t = setTimeout(
-      () => addLog("success", "Email format: VALID"),
-      200
-    );
-
-    return () => clearTimeout(t);
-  }, [formData.email, addLog]);
-
-  /* Message monitoring */
-  useEffect(() => {
-    if (formData.message.length <= 10) return;
-
-    addLog("process", "Scanning message payload...");
-    const t = setTimeout(
-      () => addLog("success", "Message payload: SANITIZED"),
-      300
-    );
-
-    return () => clearTimeout(t);
-  }, [formData.message, addLog]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
