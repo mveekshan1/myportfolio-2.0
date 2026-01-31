@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
 import { Award, Users } from "lucide-react";
 
-const images = [
+/* Hack4SDG images */
+const hack4sdgImages = [
   "/hackathons/hack4sdg/Certificate-HACK4SDG.jpg",
   "/hackathons/hack4sdg/Recognizing.jpg",
   "/hackathons/hack4sdg/TeamPhoto.jpg",
 ];
 
+/* Hack-N-Win images */
+const hackNWinImages = [
+  "/hackathons/hacknwin/stage.jpg",
+  /*"/hackathons/hacknwin/team.jpg"*/
+  "/hackathons/hacknwin/certificate.png",
+];
+
 const AchievementsSection = () => {
-  const [index, setIndex] = useState(0);
+  const [hack4Index, setHack4Index] = useState(0);
+  const [hackNWinIndex, setHackNWinIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const [paused, setPaused] = useState(false);
 
@@ -18,7 +27,8 @@ const AchievementsSection = () => {
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {
-        setIndex((prev) => (prev + 1) % images.length);
+        setHack4Index((prev) => (prev + 1) % hack4sdgImages.length);
+        setHackNWinIndex((prev) => (prev + 1) % hackNWinImages.length);
         setFade(true);
       }, 300);
     }, 4000);
@@ -30,7 +40,7 @@ const AchievementsSection = () => {
     <section id="achievements" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* SECTION HEADER (matches Projects style) */}
+        {/* SECTION HEADER */}
         <div className="mb-16 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-muted/50 mb-4">
             <Award className="w-4 h-4 text-primary" />
@@ -44,26 +54,23 @@ const AchievementsSection = () => {
           </h2>
         </div>
 
-        {/* HACKATHON ACHIEVEMENT */}
+        {/* ================= HACK4SDG ================= */}
         <div className="bg-card border border-border rounded-lg p-6 mb-16">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
-
-            {/* IMAGE SLIDER */}
             <div
               className="relative h-80 lg:h-96 flex items-center justify-center overflow-hidden rounded-lg border border-border bg-background"
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
             >
               <img
-                src={images[index]}
+                src={hack4sdgImages[hack4Index]}
                 alt="Hack4SDG Achievement"
                 className={`max-h-full max-w-full object-contain transition-all duration-500 ease-in-out
-                  ${fade ? "opacity-100 scale-100" : "opacity-0 scale-100"}
+                  ${fade ? "opacity-100" : "opacity-0"}
                 `}
               />
             </div>
 
-            {/* TEXT */}
             <div className="space-y-4">
               <span className="px-2 py-0.5 text-xs font-mono rounded bg-primary/10 text-primary">
                 Hackathon Achievement
@@ -75,18 +82,59 @@ const AchievementsSection = () => {
 
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Recognized for SDG-focused innovation at Hack4SDG, IIT Hyderabad,
-                emphasizing sustainability-driven problem solving, teamwork,
-                and real-world impact.
+                emphasizing sustainability-driven problem solving, teamwork, and
+                real-world impact.
               </p>
 
               <p className="text-xs text-muted-foreground font-mono">
-                2024
+                2024 · IIT Hyderabad · AIESEC
               </p>
             </div>
           </div>
         </div>
 
-        {/* TECHNICAL VOLUNTEERING */}
+        {/* ================= HACK-N-WIN (AFTER HACK4SDG) ================= */}
+        <div className="bg-card border border-border rounded-lg p-6 mb-16">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div
+              className="relative h-80 lg:h-96 flex items-center justify-center overflow-hidden rounded-lg border border-border bg-background"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
+              <img
+                src={hackNWinImages[hackNWinIndex]}
+                alt="Hack-N-Win Achievement"
+                className={`max-h-full max-w-full object-contain transition-all duration-500 ease-in-out
+                  ${fade ? "opacity-100" : "opacity-0"}
+                `}
+              />
+            </div>
+
+            <div className="space-y-4">
+              <span className="px-2 py-0.5 text-xs font-mono rounded bg-primary/10 text-primary">
+                Hackathon Achievement
+              </span>
+
+              <h3 className="text-xl font-semibold text-foreground">
+                3rd Place – Hack-N-Win (Microsoft Hackathon, MRCE)
+              </h3>
+
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Secured 3rd place at the Hack-N-Win Microsoft Hackathon conducted
+                at Malla Reddy College of Engineering by developing a competitive
+                technical solution under strict time constraints. The project
+                was evaluated on problem understanding, implementation quality,
+                and teamwork.
+              </p>
+
+              <p className="text-xs text-muted-foreground font-mono">
+                2024 · Malla Reddy College of Engineering · Microsoft
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ================= TECHNICAL VOLUNTEERING ================= */}
         <div className="bg-card border border-border rounded-lg p-6">
           <div className="flex items-center gap-2 mb-4">
             <Users className="w-4 h-4 text-accent" />
@@ -111,6 +159,7 @@ const AchievementsSection = () => {
             Hyderabad, India · 2023 – 2025
           </p>
         </div>
+
       </div>
     </section>
   );
