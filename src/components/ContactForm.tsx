@@ -96,7 +96,7 @@ const ContactForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="you@example.com" type="email" />
+                  <Input {...field} placeholder="Enter your email adress" type="email" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
