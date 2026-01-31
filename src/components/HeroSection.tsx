@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
   const [displayText, setDisplayText] = useState('');
-  const fullText = 'Cybersecurity Engineer | SOC Analyst (Aspirant)';
+  const fullText = 'Computer Science undergraduate focused on cybersecurity and network defense.';
 
   useEffect(() => {
     let index = 0;
@@ -20,9 +20,9 @@ const HeroSection = () => {
   }, []);
 
   const statusItems = [
-    { icon: Shield, label: 'Defense Systems', status: 'ACTIVE', color: 'text-success' },
-    { icon: Activity, label: 'Threat Monitoring', status: 'ONLINE', color: 'text-primary' },
-    { icon: Lock, label: 'Security Protocols', status: 'ENGAGED', color: 'text-accent' },
+    { icon: Shield, label: 'Defense Systems', status: 'Configured', color: 'text-success' },
+    { icon: Activity, label: 'Threat Monitoring', status: 'Simulated', color: 'text-primary' },
+    { icon: Lock, label: 'Security Protocols', status: 'Evaluated', color: 'text-accent' },
   ];
 
   return (
@@ -58,9 +58,8 @@ const HeroSection = () => {
 
             {/* Description */}
             <p className="text-muted-foreground max-w-lg leading-relaxed">
-              Computer Science undergraduate specializing in network security, 
-              threat detection, and machine learning-based security solutions. 
-              Building the next generation of cyber defense systems.
+              Computer Science undergraduate with hands-on experience in network security and machine-learning-based DDoS attack detection, 
+              focused on analyzing network traffic and identifying malicious patterns.
             </p>
 
             {/* CTAs */}
@@ -88,7 +87,7 @@ const HeroSection = () => {
                 <div className="flex items-center justify-between border-b border-border pb-4">
                   <div className="flex items-center gap-2">
                     <Shield className="w-5 h-5 text-primary" />
-                    <span className="font-mono text-sm text-foreground">SOC_DASHBOARD</span>
+                    <span className="font-mono text-sm text-foreground">Network Security Analysis Dashboard</span>
                   </div>
                   <div className="flex gap-1">
                     <span className="w-3 h-3 rounded-full bg-destructive/80" />
@@ -121,12 +120,12 @@ const HeroSection = () => {
                 {/* Live Metrics */}
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-primary">99.9%</p>
+                    <p className="text-2xl font-bold text-primary">Stable</p>
                     <p className="text-xs text-muted-foreground font-mono">Uptime</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-success">0</p>
-                    <p className="text-xs text-muted-foreground font-mono">Threats Detected</p>
+                    <p className="text-2xl font-bold text-success">50K+</p>
+                    <p className="text-xs text-muted-foreground font-mono">Samples Analyzed</p>
                   </div>
                 </div>
               </div>

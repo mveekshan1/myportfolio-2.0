@@ -1,4 +1,4 @@
-import { Shield, Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import { Shield, Github, Linkedin, Mail, Phone } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -94,17 +94,43 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://myportfolio-veekshan.netlify.app/"
+                  href="https://www.linkedin.com/in/mveekshangoud"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="LinkedIn"
                 >
-                  <ExternalLink className="w-4 h-4" />
-                  Portfolio Website
+                  <Linkedin className="w-4 h-4" />
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/mveekshan1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="GitHub"
+                >
+                  <Github className="w-4 h-4" />
+                  GitHub
+                </a>
+              </li>
+              <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Phone className="w-4 h-4" />
+                <span>
+                  <strong>Phone:</strong>&nbsp;+91-99****45&nbsp;
+                  <span className="text-xs text-muted-foreground">(Available on request)</span>
+                </span>
+                <a
+                  href="mailto:merugu.veekshangoud@gmail.com?subject=Phone%20number%20request"
+                  className="ml-2 text-sm text-primary hover:underline"
+                >
+                  Request
                 </a>
               </li>
               <li className="text-sm text-muted-foreground">
-                Siddipet, Telangana, India
+                Hyderabad, Telangana, India
               </li>
             </ul>
           </div>
