@@ -76,7 +76,7 @@ const AboutSection = () => {
                 </div>
                 </div>
                 <h3 className="text-xl font-semibold text-foreground">Merugu Veekshan Goud</h3>
-                <p className="text-sm text-muted-foreground font-mono mt-1">CS Undergraduate</p>
+                <p className="text-sm text-muted-foreground font-mono mt-1">Computer Science and Engineering</p>
               </div>
 
               {/* Contact Info */}
