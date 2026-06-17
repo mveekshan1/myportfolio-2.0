@@ -67,7 +67,7 @@ const EducationSection = () => {
               <p className="text-primary text-sm">Malla Reddy College of Engineering</p>
               <div className="flex items-center gap-4 mt-4">
                 <span className="px-3 py-1 rounded-full bg-secondary/50 border border-primary/20 text-sm mono-text">
-                  GPA: 7.53
+                  GPA: 7.83
                 </span>
                 <span className="text-muted-foreground text-sm">2022 – Present</span>
               </div>
